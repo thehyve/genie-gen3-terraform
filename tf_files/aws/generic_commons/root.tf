@@ -331,7 +331,7 @@ resource "aws_db_subnet_group" "database" {
 
 
 module "es" {
-  source = "git::git@github.com:uc-cdis/cloud-automation.git//tf_files-1.0/aws/commons_vpc_es?ref=44404bf7b3a68c2eff31972a4de3b2d987d7a142"
+  source = "../modules/commons-vpc-es"
 
   vpc_name       = var.vpc_name
   es_linked_role = false
