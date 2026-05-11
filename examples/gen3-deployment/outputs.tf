@@ -8,3 +8,11 @@ output "gitops_user_secret_access_key" {
   value       = aws_iam_access_key.gitops_key[0].secret
   sensitive = true
 }
+
+output "create_db_sql_statement" {
+  value = module.commons
+}
+
+output "create_user_sql_statement" {
+  value = ""
+}
