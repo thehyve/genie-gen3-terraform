@@ -128,7 +128,7 @@ module "gen3" {
   revproxy_arn            = local.revproxy_arn
   useryaml_s3_path        = "s3://${local.user_yaml_bucket_name}/dev/user.yaml"
   deploy_external_secrets = true
-  deploy_gen3             = false
+  deploy_gen3             = true
   create_dbs              = false # Do not use local executor
   create_dbs_with_job     = true  # Use Kubernetes job to provision the database
   cognito_discovery_url   = "https://${aws_cognito_user_pool.cognito_pool[0].endpoint}/.well-known/openid-configuration"
