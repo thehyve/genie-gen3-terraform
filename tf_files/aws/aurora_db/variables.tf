@@ -70,7 +70,3 @@ variable "db_job_role_arn" {
 variable "create_db" {
   default = true
 }
-
-variable "create_db_job" {
-  default = false
-}

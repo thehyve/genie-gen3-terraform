@@ -5,18 +5,18 @@ terraform {
       version = "~> 5.0"
     }
     kubectl = {
-      source  = "gavinbunney/kubectl"
+      source = "gavinbunney/kubectl"
     }
     helm = {
-      source = "hashicorp/helm"
+      source  = "hashicorp/helm"
       version = "2.8.0"
     }
   }
 }
 
 data "aws_eks_cluster" "selected" {
-  depends_on = [ module.commons ]
-  name = local.vpc_name
+  depends_on = [module.commons]
+  name       = local.vpc_name
 }
 
 provider "kubernetes" {
