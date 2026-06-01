@@ -33,13 +33,13 @@ locals {
   ## You can run aws ec2 describe-availability-zones --region <region> to get the list of availability zones in your region.
   availability_zones = ["us-east-1a", "us-east-1c"]
   # The hostname for your gen3 deployment. If you are creating another instance of the gen3 module set the hostname in it accordingly
-  hostname = "portal.genie.aacr.org"
+  hostname = "portal.dev.genie.dci.thehyve.nl"
   # Service linked roles can only be created once per account. If you see an error that it is already created, set this to false.
   es_linked_role = true
   # Service linked role for spot instances
   spot_linked_role = true
   # The arn of the certificate in ACM
-  revproxy_arn = "<Update with your ACM certificate arn>"
+  revproxy_arn = "arn:aws:acm:us-east-1:918475456291:certificate/f89ff758-fcbf-4657-b28c-020789389c3f"
   # Whether or not to create users/buckets needed for useryaml gitops management.
   create_gitops_infra = true
   # The name of the S3 bucket where the user.yaml file will be stored. Notice this will be created by terraform, so you don't need to create it beforehand.
