@@ -44,6 +44,7 @@ variable "password" {
 variable "secrets_manager_enabled" {
   default = true
 }
+
 # If you want to dump a database to an object in S3, then restore it, this variable is the S3 file
 # to download and restore
 variable "dump_file_to_restore" {

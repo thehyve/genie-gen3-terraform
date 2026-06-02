@@ -53,19 +53,10 @@ resource "random_password" "db_password" {
   special          = false
 }
 
-locals {
-  create_db_statement = "psql -h ${data.aws_db_instance.database.address} -U ${var.admin_database_username} -d ${var.admin_database_name} -c \"CREATE DATABASE \\\"${local.database_name}\\\";\""
-  create_user_statement = "psql -h ${data.aws_db_instance.database.address} -U ${var.admin_database_username} -d ${var.admin_database_name} -c \"${templatefile("${path.module}/db_setup.tftpl", {
-          username  = local.database_username
-          database  = local.database_name
-          password  = local.database_password
-        })}\""
-}
-
 resource "null_resource" "db_setup" {
     count = var.create_db ? 1 : 0
     provisioner "local-exec" {
-        command = local.create_db_statement
+        command = "psql -h ${data.aws_db_instance.database.address} -U ${var.admin_database_username} -d ${var.admin_database_name} -c \"CREATE DATABASE \\\"${local.database_name}\\\";\""
         environment = {
           # for instance, postgres would need the password here:
           PGPASSWORD = var.admin_database_password != "" ? var.admin_database_password : data.aws_secretsmanager_secret_version.aurora-master-password.secret_string
@@ -81,7 +72,11 @@ resource "null_resource" "db_setup" {
 resource "null_resource" "user_setup" {
     count = var.create_db ? 1 : 0
     provisioner "local-exec" {
-        command = local.create_user_statement
+        command = "psql -h ${data.aws_db_instance.database.address} -U ${var.admin_database_username} -d ${var.admin_database_name} -c \"${templatefile("${path.module}/db_setup.tftpl", {
+          username  = local.database_username
+          database  = local.database_name
+          password  = local.database_password
+        })}\""
         environment = {
           # for instance, postgres would need the password here:
           PGPASSWORD = var.admin_database_password != "" ? var.admin_database_password : data.aws_secretsmanager_secret_version.aurora-master-password.secret_string
@@ -158,10 +153,10 @@ EOF
   }
 
   triggers = {
-    username = local.database_username
-    database = local.database_name
-    password = local.database_password
+      username = local.database_username
+      database = local.database_name
+      password = local.database_password
   }
 
-  depends_on = [null_resource.user_setup[0]]
+  depends_on = [ null_resource.user_setup[0] ]
 }

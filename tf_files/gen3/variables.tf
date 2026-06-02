@@ -369,11 +369,6 @@ variable "create_dbs" {
   default = false
 }
 
-variable "create_dbs_with_job" {
-  description = "Whether to create databases with a Job on the Kubernetes cluster. This approach does not need publically accessble database service."
-  default = false
-}
-
 variable "cognito_discovery_url" {
   default = ""
 }
