@@ -128,13 +128,14 @@ module "eks" {
   ]
 
   fargate_profiles = {
-    karpenter   = { selectors = [{ namespace = "karpenter" }] }
-    kube-system = { selectors = [{ namespace = "kube-system" }] }
-    ext-secrets = { selectors = [{ namespace = "external-secrets" }] }
-    gen3-app    = {
+    karpenter = {
       selectors = [
-        { namespace = "default" },
-        { namespace = "gen3" }
+        { namespace = "karpenter" }
+      ]
+    }
+    kube-system = {
+      selectors = [
+        { namespace = "kube-system" }
       ]
     }
   }
